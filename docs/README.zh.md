@@ -1,9 +1,8 @@
-```html
 <p align="center">
   <strong>-------></strong>
-  <a href="/README.md">俄语</a> |
-  <a href="/docs/README.en.md">英语</a> |
-  <a href="/docs/README.es.md">西班牙语</a> |
+  <a href="/README.md">俄文</a> |
+  <a href="/docs/README.en.md">英文</a> |
+  <a href="/docs/README.es.md">西班牙文</a> |
   <a href="/docs/README.zh.md">中文</a> |
   <strong><-------</strong>
 </p>
@@ -11,7 +10,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../media/logo-dark.png">
-    <img alt="Project Logo" src="../media/logo-light.png" width="512" height="auto">
+    <img alt="工程Logo" src="../media/logo-light.png" width="512" height="auto">
   </picture>
 </p>
 
@@ -21,7 +20,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-blue?style=flat&logo=github)](https://github.com/AnikBeris)
 [![License](https://img.shields.io/badge/License-purple?style=flat&logo=github)](/LICENSE.md)
-[![GitHub Stars](https://img.shields.io/github/stars/AnikBeris?style=flat&logo=github&label=星星&color=orange)](https://github.com/AnikBeris)
+[![GitHub Stars](https://img.shields.io/github/stars/AnikBeris?style=flat&logo=github&label=Stars&color=orange)](https://github.com/AnikBeris)
 
 </div>
 
@@ -30,50 +29,52 @@
 </div>
 
 <h1 align="center"> 
-Unreal Engine 5.7 – 共享派生数据缓存（DDC）与内容存储 
+Unreal Engine 5.7 – 共享派生数据缓存 (DDC) 和内容存储
 </h1>
 
 <h2 align="center">
-> 💡 此文档描述了 **Shared Derived Data Cache (DDC)** 和 **Content Storage** 在 Unreal Engine 5.7 中的架构、用途和实际实现，适用于个人开发者和小型团队，并具有 CI/CD 的可扩展性。
+> 💡 本文档描述了如何使用 Docker 和 MinIO 为 Unreal Engine 5.7 设置 **共享派生数据缓存 (DDC)** 和 **内容存储** 的架构、用途及实际实现。此文档适用于个人开发者和小型团队，并可扩展至 CI/CD 项目。
 
 </h2>
+
 
 * * * * * * * * * * * * * * * * * * 
 * * * * * * * * * * * * * * * * * * 
 
 <h2 align="center">
-⚠️ 免责声明 ⚠️
+⚠️免责声明⚠️
 </h2>
 
 <p align="center">
-  作者对使用此项目可能导致的任何后果概不负责。<br>
-  使用需自担风险。
+  作者对使用本项目可能导致的任何后果概不负责。<br>
+  请在自担风险的前提下使用。
 </p>
 
-<details align="center"> 
-    <summary>⚠️完整文本⚠️</summary>
+<details align="center">
+    <summary>⚠️完整声明⚠️</summary>
     
-使用此存储库中的材料需自行承担风险。
+使用此存储库中的资料需自担风险。
 
-1. 使用本存储库中的内容即表示您自动接受与其有关的许可协议条款。
+1. 使用此存储库的资料，表示您已自动同意与之相关的许可协议条款。
 
-2. 作者对于这些材料的准确性、完整性或是否适用于任何特定目的，不提供任何形式的明示或暗示保证。 
-   
-3. 作者对因使用或无法使用本存储库及其附带文档所导致的任何损失，包括但不限于直接、间接、附带、继发或特殊损失，即使已被事先告知此类损失的可能性，也概不负责。
+2. 作者不对这些资料的准确性、完整性或适用于任何特定目的的适用性提供任何明确或暗示的保证。
 
-4. 使用本存储库中的内容即表示您确认并承担其使用的所有风险。此外，您同意作者不对因此使用而引发的任何问题或后果承担责任。
+3. 因使用或无法使用此存储库中的资料或随附文档而导致的任何损失，包括但不限于直接、间接、附带性、间接性或特殊损失，即使已事先告知可能发生这些损失，作者概不负责。
+
+4. 使用此存储库中的资料，表示您承认并承担与其应用相关的所有风险。此外，您同意作者因为使用本资料所产生的任何问题或后果不承担任何责任。
 
 </details> 
 
 ---
 
 <h3 align="center"> 
-💖 支持此项目 
+💖 支持项目 
 </h3>
 
 <p align="center"> 
-如果该项目对您有帮助，可以通过点赞支持他: :star2: 
+如果此项目对您有用，可以通过点赞表达支持。:star2: 
 </p>
+
 
 <details align="center"> 
     <summary>💖支持项目💖</summary>
@@ -87,9 +88,11 @@ Unreal Engine 5.7 – 共享派生数据缓存（DDC）与内容存储
   </a>
 </p>
 
+
+
 <h4 align="center"> 
-即使是微薄的捐赠，我们也深表感谢。😌 
-</h1>
+任何形式的捐赠都是欢迎的，哪怕只是小额支持，非常感谢。😌 
+</h4>
 
 <div align="center">
 
@@ -106,33 +109,36 @@ Unreal Engine 5.7 – 共享派生数据缓存（DDC）与内容存储
 ---
 
 <p align="center">
-  <sub> 感谢您关注并支持这个项目 💙 </sub>
+  <sub> 感谢您关注和支持项目 💙 </sub>
 </p>
+
 
 </details> 
 
 * * * * * * * * * * * * * * * * * * 
 * * * * * * * * * * * * * * * * * * 
 
+
+
 <h2 align="center">
-  <a href="#-前言">📖 Unreal Engine 5.7 缓存配置指南</a>
+  📖 Unreal Engine 5.7 缓存设置指南
 </h2>
 
 ## 📚 目录
 
-- [🎯 前言 - 为什么需要这个](#-前言)
-- [💾 什么是缓存及其存储内容](#1-缓存中存储的内容是什么)
-- [🏗️ 缓存系统的构造](#2-ue-57中的ddc架构)
-- [📁 通过共享文件夹的简单配置](#3-通过-filesystem进行共享ddc配置)
-- [☁️ 基于MinIO的高级配置（推荐）](#4-通过-minio配置共享ddc推荐方式)
-- [🤖 自动化与CI/CD](#5-ddc与cicd至关重要)
-- [📦 项目其他文件的存储](#6-content-storage不仅仅是ddc)
-- [🔢 缓存版本-重要规则](#7-缓存版本常见错误)
-- [📊 监控及清理旧文件](#8-监控与清理)
-- [⚠️ 什么不应该缓存](#9-什么不需要缓存)
-- [📈 实际提速数据](#10-效果数据)
-- [🛠️ 最低工具配置](#11-推荐的最低技术栈)
-- [📚 补充材料](#补充)
+- [🎯 简介 - 为什么需要缓存](#-vvedenie)
+- [💾 缓存是什么以及存储了什么](#1-chto-imenno-keshiruyetsya-v-unreal-engine)
+- [🏗️ 缓存系统架构](#2-arkhitektura-ddc-v-ue-57)
+- [📁 基于共享文件夹的简单设置](#3-shared-ddc-cherez-filesystem)
+- [☁️ 基于 MinIO 的高级设置（推荐方案）](#4-shared-ddc-cherez-minio-rekomendovannyy-variant)
+- [🤖 自动化与 CI/CD](#5-ddc-i-cicd-kriticheski-vazhno)
+- [📦 项目文件存储](#6-content-storage-ne-tolko-ddc)
+- [🔢 缓存版本管理 - 常见问题及规则](#7-versiionirovaniye-kesha-chastaya-oshibka)
+- [📊 文件监控与清理](#8-monitoring-i-ochistka)
+- [⚠️ 不该缓存的内容](#9-chto-ne-stoit-keshiruyet)
+- [📈 加速的实际数据](#10-rezultat-v-cifrakh)
+- [🛠️ 基础工具建议](#11-rekomenduemyy-minimalnyy-stek)
+- [📚 补充材料](#dopolnitelno)
 
 ---
 
@@ -147,17 +153,50 @@ Unreal Engine 5.7 – 共享派生数据缓存（DDC）与内容存储
 - [Docker 文档](https://docs.docker.com/)
 
 **社区:**
-- [Unreal Engine 论坛](https://forums.unrealengine.com/)
+- [Unreal Engine 社区](https://forums.unrealengine.com/)
 - [Unreal Slackers Discord](https://unrealslackers.org/)
 
 ---
 
 <h2 align="center">
-  <a href="#-目录">⬆️ 返回目录</a>
+  <a href="#-soderzhanie">⬆️返回目录</a>
 </h2>
-
 
 <h2 align="center">
-  <a href="#-目录">⬆️ 顶部</a>
+  <a href="#-soderzhanie">⬆️顶部</a>
 </h2>
-```
+
+---
+
+## 4️⃣ 基于 MinIO 的 Shared DDC 设置（推荐方案）
+
+### 4.1 什么是 MinIO，为什么需要？
+
+**简单来说** `MinIO` 是一种软件，可以将磁盘上的普通文件夹变成云存储（类似 AWS S3，但为自建）。
+
+<details> 
+    <summary>⚙️ 展开描述</summary>
+
+**类比概念:**
+- **Filesystem** = 电脑上的普通文件夹
+- **MinIO** = 同样的文件夹，但带有 Web 界面和互联网访问功能
+
+**为什么 MinIO 优于普通文件夹？**
+
+| 功能 | 普通文件夹 | MinIO |
+|---------|---------------|-------|
+| 局域网使用 | ✅ 是 | ✅ 是 |
+| 互联网使用 | ❌ 比较复杂 | ✅ 简单 |
+| 文件版本管理 | ❌ 无 | ✅ 支持 |
+| 自动清理旧文件 | ❌ 手动 | ✅ 自动化 |
+| 使用监控 | ❌ 无 | ✅ 有 |
+| 扩展性 | ❌ 较差 | ✅ 优秀 |
+| 安全性 | ⚠️ 基础的 | ✅ 高级 |
+
+</details>
+
+<h2 align="center">
+  <a href="#-soderzhanie">⬆️返回目录</a>
+</h2>
+
+
