@@ -1,16 +1,18 @@
 <p align="center">
   <strong>-------></strong>
-  <a href="/README.md">俄语</a> |
-  <a href="/docs/README.en.md">英语</a> |
-  <a href="/docs/README.es.md">西班牙语</a> |
-  <a href="/docs/README.zh.md">中文</a> |
+  <a href="/README.md">Русский</a> |
+  <a href="/docs/README.en.md">English</a> |
+  <a href="/docs/README.es.md">Spanish</a> |
+  <a href="/docs/README.zh.md">Chinese</a> |
   <strong><-------</strong>
 </p>
+
+
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../media/logo-dark.png">
-    <img alt="项目Logo" src="../media/logo-light.png" width="512" height="auto">
+    <img alt="Project Logo" src="../media/logo-light.png" width="512" height="auto">
   </picture>
 </p>
 
@@ -20,7 +22,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-blue?style=flat&logo=github)](https://github.com/AnikBeris)
 [![License](https://img.shields.io/badge/License-purple?style=flat&logo=github)](/LICENSE.md)
-[![GitHub Stars](https://img.shields.io/github/stars/AnikBeris?style=flat&logo=github&label=Stars&color=orange)](https://github.com/AnikBeris)
+[![GitHub Stars](https://img.shields.io/github/stars/AnikBeris?style=flat&logo=github&label=Звёзды&color=orange)](https://github.com/AnikBeris)
 
 </div>
 
@@ -28,67 +30,76 @@
   <img src="../media/image0.gif" alt="SPACER" width="90%">
 </div>
 
+
 <h1 align="center"> 
-虚幻引擎5.7 - 共享派生数据缓存 (DDC) 和内容存储
+Unreal Engine 5.7 – Shared Derived Data Cache (DDC) 和 Content Storage
 </h1>
 
 <h2 align="center">
-> 💡 本文档面向独立开发者和小团队，同时也适用于 CI/CD 和中型工作室的扩展需求。
-> 💡 本文档描述了使用 Docker 和 MinIO 的虚幻引擎 5.7 的共享派生数据缓存 (DDC) 和内容存储的架构、用途和实践实现。
+  
+> 💡 本文档面向独立开发人员与小型团队，也适用于CI/CD和中型工作室。
+
+> 💡 本文档描述了使用 Docker 和 MinIO 实现 Unreal Engine 5.7 的 Shared Derived Data Cache (DDC) 和 Content Storage 的架构、用途及实践。
 
 </h2>
 
+
 * * * * * * * * * * * * * * * * * * 
 * * * * * * * * * * * * * * * * * * 
 
+
+
+
 <h2 align="center">
-⚠️免责声明⚠️
+⚠️ 注意事项 ⚠️
 </h2>
 
 <p align="center">
-  作者不对任何因使用本项目可能引发的后果负责。<br>
-  一切风险由使用者承担。
+  作者不对使用本项目可能造成的任何后果承担责任。<br>
+  风险自负。
 </p>
 
 <details align="center"> 
-    <summary>⚠️完整文本⚠️</summary>
+    <summary>⚠️完整声明⚠️</summary>
     
-使用本仓库的材料需默认接受以下条款：
+使用本存储库的资料需自行承担风险。
 
-1. 使用本仓库中的材料，即表示您自动同意与之相关的许可协议中的条款。
+1. 使用本存储库的材料即表示您同意与之相关的许可协议的条款。
 
-2. 作者不对材料的准确性、完整性或适用于某特定目的的适用性提供任何明示或暗示的担保。
+2. 作者对这些材料的准确性、完整性或适用于特定用途的适用性不作任何明示或暗示的保证。
 
-3. 作者不对因使用或无法使用本仓库中的材料或其附带文档而造成的任何损失负责，包括但不限于直接损失、间接损失、附带损失、后果性损失或特殊损失，即便事先已告知可能性。
+3. 作者对因使用或无法使用本存储库或其相关文档中的材料而造成的任何损失，包括但不限于直接损失、间接损失、附带损失或特殊损失即使已经提前被告知也不负责。
 
-4. 使用本仓库的材料即表示您确认并承担所有与其使用相关风险。此外，您同意作者不对由其使用引起的任何问题或后果负责。
+4. 使用本存储库的材料即表示您确认并承担所有相关的风险。同时，您同意作者在此项目使用中产生的任何问题或后果中，不对其承担责任。
 
 </details> 
 
 ---
 
 <h3 align="center"> 
-💖 支持项目 
+💖 支持此项目 
 </h3>
 
 <p align="center"> 
-如果您觉得此项目对您有用，欢迎给项目点个赞:star2: 
+如果此项目对您有帮助，您可以通过点亮星星来支持它。:star2: 
 </p>
+
 
 <details align="center"> 
     <summary>💖支持项目💖</summary>
 
 <p align="center">
   <a href="https://pay.cloudtips.ru/p/7249ba98" target="_blank">
-    <img src="../media/buymeacoffe.png" alt="请我喝杯咖啡">
+    <img src="../media/buymeacoffe.png" alt="Buy Me a Coffee">
   </a>
   <a href="https://pay.cloudtips.ru/p/7249ba98" target="_blank">
-    <img src="../media/buymeacoffe.png" alt="请我喝杯咖啡">
+    <img src="../media/buymeacoffe.png" alt="Buy Me a Coffee">
   </a>
 </p>
 
+
 <h4 align="center"> 
-非常感谢您的支持，无论捐赠金额多么微小 😌 
+不管金额大小，都非常欢迎任何捐助，感谢支持。😌 
 </h1>
 
 <div align="center">
@@ -106,178 +117,165 @@
 ---
 
 <p align="center">
-  <sub> 感谢您对项目的关注与支持 💙 </sub>
+  <sub> 感谢您关注和支持本项目 💙 </sub>
 </p>
+
 
 </details> 
 
 * * * * * * * * * * * * * * * * * * 
 * * * * * * * * * * * * * * * * * * 
 
+
+
 <h2 align="center">
-  <a href="#-目录">📖 虚幻引擎 5.7 缓存设置指南</a>
+  <a href="#-содержание">📖 Unreal Engine 5.7 缓存设置指南</a>
 </h2>
 
-## 📚 目录
+## 📚 内容目录
 
-- [🎯 引言 - 为什么需要](#-引言)
-- [💾 缓存是什么以及它保存了什么](#1-虚幻引擎缓存了什么内容)
-- [🏗️ 缓存系统的架构](#2-虚幻引擎-57-的ddc架构)
-- [📁 通过共享文件夹实现简单配置](#3-通过文件系统实现共享ddc)
-- [☁️ 通过MinIO的高级设置（推荐）](#4-通过minio实现共享ddc-推荐方案)
-- [🤖 自动化与CI/CD](#5-ddc与cicd至关重要)
-- [📦 项目文件的其他存储方式](#6-不仅仅是ddc的内容存储)
-- [🔢 缓存版本的重要规则](#7-缓存版本化-常见错误)
-- [📊 监控与清理旧文件](#8-监控与清理)
-- [⚠️ 不需要缓存的内容](#9-不需要缓存的内容)
-- [📈 实际加速数字](#10-加速效果数据)
-- [🛠️ 最低工具要求](#11-推荐的最低工具集)
-- [📚 补充资料](#补充材料)
+- [🎯 引言 - 为什么需要它](#-введение)
+- [💾 缓存是什么以及它存储了什么](#1-что-именно-кешируется-в-unreal-engine)
+- [🏗️ 缓存系统的构造](#2-архитектура-ddc-в-ue-57)
+- [📁 使用共享文件夹的简单设置](#3-shared-ddc-через-filesystem)
+- [☁️ 通过 MinIO 的高级设置（推荐方式）](#4-shared-ddc-через-minio-рекомендуемый-вариант)
+- [🤖 自动化和CI/CD](#5-ddc-и-cicd-критически-важно)
+- [📦 项目的其他文件存储](#6-content-storage-не-только-ddc)
+- [🔢 缓存版本 - 重要规则](#7-версионирование-кеша-частая-ошибка)
+- [📊 文件监控与清理](#8-мониторинг-и-очистка)
+- [⚠️ 什么不应该缓存](#9-что-не-стоит-кешировать)
+- [📈 实际加速数据](#10-результат-в-цифрах)
+- [🛠️ 工具所需最低配置](#11-рекомендуемый-минимальный-стек)
+- [📚 更多资料](#дополнительно)
 
 ---
 
-## 🔗 实用链接
+## 🔗 相关链接
 
 **官方文档：**
-- [虚幻引擎文档](https://docs.unrealengine.com/)
-- [派生数据缓存](https://docs.unrealengine.com/5.7/derived-data-cache/)
+- [Unreal Engine Documentation](https://docs.unrealengine.com/)
+- [Derived Data Cache](https://docs.unrealengine.com/5.7/derived-data-cache/)
 
 **工具：**
 - [MinIO 官方网站](https://min.io/)
 - [Docker 文档](https://docs.docker.com/)
 
 **社区：**
-- [虚幻引擎论坛](https://forums.unrealengine.com/)
+- [Unreal Engine Forums](https://forums.unrealengine.com/)
 - [Unreal Slackers Discord](https://unrealslackers.org/)
 
 ---
 
 <h2 align="center">
-  <a href="#-目录">⬆️ 返回目录</a>
+  <a href="#-содержание">⬆️ 返回目录</a>
 </h2>
 
+
 <h2 align="center">
-  <a href="#-目录">⬆️ 顶部</a>
+  <a href="#-содержание">⬆️ 返回顶部</a>
 </h2>
 
 ---
 
-## 4️⃣ 通过MinIO实现共享DDC（推荐方案）
+## 4️⃣ 通过 MinIO 的 Shared DDC（推荐方式）
 
-### 4.1 MinIO 是什么，有什么用？
+### 4.1 什么是 MinIO？为什么需要它？
 
-**简单来说** `MinIO` 是一款程序，能够将普通硬盘上的文件夹变成云存储（类似 AWS S3，但自托管）。
+**简单来说** `MinIO` 是一个程序，可以将磁盘上的普通文件夹变成云存储（类似 AWS S3，但属于自己管理）。
 
-<details>
-    <summary>⚙️展开说明</summary>
+<details> 
+    <summary>⚙️ 展开描述</summary>
 
 **类比：**
-- **Filesystem** = 本地硬盘上的普通文件夹
-- **MinIO** = 文件夹带有网络接口和Web界面支持
+- **Filesystem** = 计算机上的普通文件夹
+- **MinIO** = 同一个文件夹，但有了网页界面并支持互联网访问
 
-**为什么选择 MinIO？**
+**相比普通文件夹，MinIO 的优势：**
 
 | 功能 | 普通文件夹 | MinIO |
 |---------|---------------|-------|
-| 局域网操作 | ✅ 是 | ✅ 是 |
-| 互联网操作 | ❌ 难 | ✅ 简单 |
-| 文件版本化 | ❌ 无 | ✅ 有 |
-| 清理旧文件 | ❌ 手动 | ✅ 自动 |
-| 使用监控 | ❌ 无 | ✅ 有 |
-| 可扩展性 | ❌ 差 | ✅ 极好 |
-| 安全性 | ⚠️ 基础 | ✅ 高级 |
+| 局域网工作 | ✅ 是 | ✅ 是 |
+| 互联网访问 | ❌ 困难 | ✅ 简单 |
+| 文件版本控制 | ❌ 没有 | ✅ 有 |
+| 自动清理旧文件 | ❌ 手动 | ✅ 自动 |
+| 使用情况监测 | ❌ 无 | ✅ 支持 |
+| 可扩展性 | ❌ 一般 | ✅ 优秀 |
+| 安全性 | ⚠️ 基础 | ✅ 优化 |
 
 </details>
 
---- 
+---
 
-### 4.2 系统架构
+### 4.2 工作架构
 
 <details> 
-    <summary>⚙️展开说明</summary>
+    <summary>⚙️ 展开描述</summary>
 
 ```
-开发人员 (虚幻编辑器)
-         ↓ HTTP请求
-      MinIO服务器
+开发者 (Unreal Editor)
+         ↓ HTTP 请求
+      MinIO 服务器
          ↓
     硬盘上的文件夹
     /minio-data/
-      ├─ ue-ddc-5-7/     ← Bucket（文件存储容器）
+      ├─ ue-ddc-5-7/     ← Bucket（文件容器）
       │   ├─ Win64/
       │   └─ Linux/
 ```
 
 **什么是 Bucket？**
-- `Bucket` 就是 MinIO 中的虚拟文件夹，类似独立的“箱子”来存储文件。
+- `Bucket` = MinIO 中的虚拟文件夹。相当于用于存储文件的单独“箱子”。
+
+</details>
+
+
+### 4.3 通过 Docker 安装 MinIO
+
+<details> 
+    <summary>⚙️ 展开描述</summary>
+
+#### 为什么使用 Docker？
+
+- `Docker` = 可在独立环境中运行的“容器”，不依赖于您的系统。
+
+**优点：**
+- ✅ 在 Windows、Linux、Mac 上都能正常运行
+- ✅ 无需安装额外依赖项
+- ✅ 不喜欢时可轻松删除
+- ✅ 与操作系统隔离
 
 </details>
 
 ---
 
-### 4.3 使用 Docker 安装 MinIO
-
-<details> 
-    <summary>⚙️展开说明</summary>
-
-#### 为什么选择 Docker？
-
-- `Docker` 是一种运行程序的方式，它类似“盒子”，不依赖您的系统环境。
-
-**优势：**
-- ✅ 在 Windows、Linux 和 Mac 上运行一致
-- ✅ 无需安装依赖项
-- ✅ 不喜欢时可以轻松删除
-- ✅ 与其他系统独立隔离
-
-</details>
-
---- 
-
 
 <h2 align="center">
-  <a href="#-目录">⬆️ 返回目录</a>
+  <a href="#-содержание">⬆️ 返回目录</a>
 </h2>
 
 ---
 
 ---
 
-# 第一步：安装 Docker
+<h1 align="center"> 📜 许可证 </h1>
+<p align="center">
+  <strong> 本项目基于 </strong> 
+  <a href="/LICENSE">Apache License</a> 
+  <strong> 发布 </strong>
+</p>
 
-<details> 
-    <summary>⚙️Windows </summary>
+---
 
-**Windows:**
-1. 下载 [Docker Desktop](https://www.docker.com/products/docker-desktop)
-2. 安装并运行
-3. 确保 Docker 正常运行（任务栏托盘中出现鲸鱼图标）
+<h2 align="center"> 
+详细文档请查看 
+</h2>
 
-</details>
 
-<details> 
-    <summary>⚙️Linux (Ubuntu/Debian) </summary>
-
-```bash
-# 安装 Docker
-sudo apt update
-sudo apt install docker.io docker-compose -y
-
-# 将用户添加到 docker 用户组
-sudo usermod -aG docker $USER
-
-# 重新启动
-sudo reboot
-```
-
-**安装验证：**
-```bash
-docker --version
-```
-# 应显示：`Docker version 24.0.x, build ...`
-
-</details>
-
---- 
-
-...
+<p align="center">
+  <strong>-------></strong>
+  <a href="/README.md">Русский</a> |
+  <a href="/docs/README.en.md">English</a> |
+  <a href="/docs/README.es.md">Spanish</a> |
+  <a href="/docs/README.zh.md">Chinese</a> |
+  <strong><-------</strong>
+</p>
