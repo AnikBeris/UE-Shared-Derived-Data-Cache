@@ -1,6 +1,6 @@
 <p align="center">
   <strong>-------></strong>
-  <a href="/README.md">Russian</a> |
+  <a href="/README.md">Русский</a> |
   <a href="/docs/README.en.md">English</a> |
   <a href="/docs/README.es.md">Spanish</a> |
   <a href="/docs/README.zh.md">Chinese</a> |
@@ -36,7 +36,8 @@ Unreal Engine 5.7 – Shared Derived Data Cache (DDC) and Content Storage
 </h1>
 
 <h2 align="center">
-> 💡 This document describes the architecture, purpose, and practical implementation of **Shared Derived Data Cache (DDC)** and **Content Storage** for Unreal Engine 5.7 using Docker and MinIO. The material is tailored for individual developers and small teams, and can be scaled for CI/CD.
+> 💡 Material targeted at indie developers and small teams, scalable for CI/CD and medium studios.
+> 💡 This document describes the architecture, purpose, and practical implementation of Shared Derived Data Cache (DDC) and Content Storage for Unreal Engine 5.7 using Docker and MinIO.
 
 </h2>
 
@@ -51,22 +52,22 @@ Unreal Engine 5.7 – Shared Derived Data Cache (DDC) and Content Storage
 </h2>
 
 <p align="center">
-  The author bears no responsibility for any potential consequences of using this project.<br>
+  The author is not responsible for any consequences arising from the use of this project.<br>
   Use at your own risk.
 </p>
 
 <details align="center"> 
-    <summary>⚠️Full Text⚠️</summary>
+    <summary>⚠️Full Disclaimer⚠️</summary>
     
-Use the materials from this repository at your own risk.
+Use the materials in this repository at your own risk.
 
-1. By using the materials from this repository, you automatically agree to its license agreement and terms.
+1. By using the materials in this repository, you automatically agree to the associated licensing terms.
 
-2. The author provides no warranties, explicit or implied, regarding the accuracy, completeness or suitability of these materials for any particular purposes. 
+2. The author provides no guarantees, explicit or implied, regarding the accuracy, completeness, or suitability of these materials for any specific purposes. 
    
-3. The author is not responsible for any losses, including but not limited to direct, indirect, incidental, consequential or special damages, resulting from the use or inability to use materials contained in this repository or accompanying documentation, even if forewarned of the possibility of such damages.
+3. The author is not liable for any losses, including, but not limited to, direct, indirect, incidental, consequential, or special damages resulting from the use or inability to use materials from this repository or its accompanying documentation, even if such damages were foreseeable.
 
-4. By using these materials, you confirm and accept all risks related to their application. Additionally, you agree that the author cannot be held liable for any issues or consequences arising from its use.
+4. By using the materials in this repository, you acknowledge and accept all risks associated with its application. Furthermore, you agree that the author cannot be held liable for any issues or consequences arising from its use.
 
 </details> 
 
@@ -77,7 +78,7 @@ Use the materials from this repository at your own risk.
 </h3>
 
 <p align="center"> 
-If this project has been helpful to you, feel free to rate it by giving it a star.:star2: 
+If this project was useful to you, you can show your appreciation by giving it a star.:star2: 
 </p>
 
 
@@ -96,7 +97,7 @@ If this project has been helpful to you, feel free to rate it by giving it a sta
 
 
 <h4 align="center"> 
-Donations are warmly welcomed, no matter how small, and thank you very much. 😌 
+Donations are greatly appreciated, no matter how small, and big thanks. 😌 
 </h1>
 
 <div align="center">
@@ -114,7 +115,7 @@ Donations are warmly welcomed, no matter how small, and thank you very much. �
 ---
 
 <p align="center">
-  <sub> Thank you for your interest and support for the project 💙 </sub>
+  <sub> Thank you for your attention to the project and for your support 💙 </sub>
 </p>
 
 
@@ -126,24 +127,24 @@ Donations are warmly welcomed, no matter how small, and thank you very much. �
 
 
 <h2 align="center">
-  <a href="#-contents">📖 Guide to Setting up Unreal Engine 5.7 Cache</a>
+  <a href="#-content">📖 Unreal Engine 5.7 Cache Setup Guide</a>
 </h2>
 
-## 📚 Contents
+## 📚 Content
 
-- [🎯 Introduction - Why This is Needed](#-introduction)
-- [💾 What is Cached and Why](#1-what-does-unreal-engine-cache)
-- [🏗️ How the Cache System Works](#2-unreal-engine-57-ddc-architecture)
-- [📁 Simple Setup via Shared Folder](#3-shared-ddc-using-filesystem)
-- [☁️ Advanced Setup using MinIO (Best Option)](#4-shared-ddc-using-minio-recommended-option)
-- [🤖 Automation and CI/CD](#5-critical-for-ddc-and-cicd)
-- [📦 Storing Other Project Files](#6-content-storage-not-just-for-ddc)
+- [🎯 Introduction - Why Do You Need This](#-introduction)
+- [💾 What is a Cache and What Does It Store](#1-what-does-unreal-engine-cache)
+- [🏗️ How the Cache System Works](#2-ddc-architecture-in-ue-57)
+- [📁 Simple Setup via Shared Folder](#3-shared-ddc-via-filesystem)
+- [☁️ Advanced Setup with MinIO (Best Option)](#4-shared-ddc-via-minio-recommended-option)
+- [🤖 Automation and CI/CD](#5-ddc-and-cicd-critically-important)
+- [📦 Storing Other Project Files](#6-content-storage-not-just-ddc)
 - [🔢 Cache Versions - Important Rules](#7-cache-versioning-common-mistake)
-- [📊 Monitoring and Cleaning Old Files](#8-monitoring-and-cleaning)
-- [⚠️ What Should NOT Be Cached](#9-what-not-to-cache)
-- [📈 Actual Acceleration Results](#10-performance-results)
-- [🛠️ Minimal Toolset](#11-recommended-minimal-stack)
-- [📚 Additional Materials](#additional-materials)
+- [📊 Monitoring and Cleaning Old Files](#8-monitoring-and-cleanup)
+- [⚠️ What NOT to Cache](#9-what-not-to-cache)
+- [📈 Real Acceleration Numbers](#10-performance-results-with-data)
+- [🛠️ Minimum Tool Requirements](#11-recommended-minimal-stack)
+- [📚 Additional Resources](#extra-resources)
 
 ---
 
@@ -164,21 +165,21 @@ Donations are warmly welcomed, no matter how small, and thank you very much. �
 ---
 
 <h2 align="center">
-  <a href="#-contents">⬆️ Back to Contents</a>
+  <a href="#-content">⬆️ Back to Content</a>
 </h2>
 
 
 <h2 align="center">
-  <a href="#-contents">⬆️ Top</a>
+  <a href="#-content">⬆️ Top</a>
 </h2>
 
 ---
 
-## 4️⃣ Shared DDC via MinIO (Recommended Setup)
+## 4️⃣ Shared DDC via MinIO (Recommended Option)
 
 ### 4.1 What is MinIO and Why Use It?
 
-**Simply put,** `MinIO` is a program that turns a regular folder on your drive into cloud storage (like AWS S3, but private).
+**In simple terms** `MinIO` is a program that turns a regular folder on a disk into cloud storage (like AWS S3, but one you own).
 
 <details> 
     <summary>⚙️ Expand Description</summary>
@@ -189,13 +190,13 @@ Donations are warmly welcomed, no matter how small, and thank you very much. �
 
 **Why is MinIO better than a regular folder?**
 
-| Function | Regular Folder | MinIO |
-|----------|----------------|-------|
-| Works in local network | ✅ Yes | ✅ Yes |
-| Works over the internet | ❌ Difficult | ✅ Easy |
+| Feature | Regular Folder | MinIO |
+|---------|----------------|-------|
+| Local Network Access | ✅ Yes | ✅ Yes |
+| Internet Access | ❌ Difficult | ✅ Easy |
 | File Versioning | ❌ No | ✅ Yes |
-| Auto-delete old files | ❌ Manual | ✅ Automatic |
-| Usage Monitoring | ❌ None | ✅ Available |
+| Automatic File Cleanup | ❌ Manual | ✅ Automatic |
+| Usage Monitoring | ❌ No | ✅ Yes |
 | Scalability | ❌ Poor | ✅ Excellent |
 | Security | ⚠️ Basic | ✅ Advanced |
 
@@ -203,7 +204,7 @@ Donations are warmly welcomed, no matter how small, and thank you very much. �
 
 ---
 
-### 4.2 High-Level Architecture
+### 4.2 How it Works
 
 <details> 
     <summary>⚙️ Expand Description</summary>
@@ -213,7 +214,7 @@ Developer (Unreal Editor)
          ↓ HTTP Request
       MinIO Server
          ↓
-    Folder on the disk
+    Folder on Disk
     /minio-data/
       ├─ ue-ddc-5-7/     ← Bucket (container for files)
       │   ├─ Win64/
@@ -221,28 +222,28 @@ Developer (Unreal Editor)
 ```
 
 **What is a Bucket?**
-- `Bucket` = a virtual folder inside MinIO, essentially a separate "box" for storing files.
+- `Bucket` = a virtual folder inside MinIO. Like a separate "box" for storing files.
 
 </details>
 
 
-### 4.3 Setting Up MinIO with Docker
+### 4.3 Setting up MinIO with Docker
 
 <details> 
     <summary>⚙️ Expand Description</summary>
 
 #### Why Docker?
 
-- `Docker` = a way to run a program in a "box" independent of your operating system.
+- `Docker` = a way to run a program in a "container" independent from your system.
 
 **Advantages:**
-- ✅ Works identically on Windows, Linux, Mac
-- ✅ No need to install dependencies
-- ✅ Easy to remove if not needed
+- ✅ Works the same on Windows, Linux, Mac
+- ✅ No dependencies to install
+- ✅ Easy to remove if you don’t like it
 - ✅ Isolated from the rest of the system
 
 </details>
 
 ---
 
-More detailed sections and explanations (steps to configure Docker, create buckets, optimize the system, etc.) follow in the original text. Expand wherever necessary for further instructions or setup details.
+For further instructions on setting up using Docker, configuring MinIO, using it for Unreal Engine cache, optimizing performance, accessing data through internet/VPN, and utilizing advanced settings/material, please proceed to the return links throughout the guide.
