@@ -1,7 +1,7 @@
 <p align="center">
   <strong>-------></strong>
-  <a href="/README.md">Русский</a> |
-  <a href="/docs/README.en.md">English</a> |
+  <a href="/README.md">Ruso</a> |
+  <a href="/docs/README.en.md">Inglés</a> |
   <a href="/docs/README.es.md">Español</a> |
   <a href="/docs/README.zh.md">Chino</a> |
   <strong><-------</strong>
@@ -12,7 +12,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../media/logo-dark.png">
-    <img alt="Project Logo" src="../media/logo-light.png" width="512" height="auto">
+    <img alt="Logotipo del Proyecto" src="../media/logo-light.png" width="512" height="auto">
   </picture>
 </p>
 
@@ -27,16 +27,17 @@
 </div>
 
 <div align="center">
-  <img src="../media/image0.gif" alt="SPACER" width="90%">
+  <img src="../media/image0.gif" alt="ESPACIADOR" width="90%">
 </div>
 
 
 <h1 align="center"> 
-Información útil sobre el desarrollo de proyectos en Unreal Engine 5 utilizando el plugin AdvancedSessions-Steam
+Unreal Engine 5.7 – Shared Derived Data Cache (DDC) y Almacenamiento de Contenido
 </h1>
 
 <h2 align="center">
-> 💡 El material está diseñado para usuarios experimentados.
+> 💡 Este documento describe la arquitectura, propósito y la implementación práctica de **Shared Derived Data Cache (DDC)** y **Content Storage** para Unreal Engine 5.7 utilizando Docker y MinIO. El material está destinado a desarrolladores individuales y pequeños equipos, además de ser escalable para CI/CD.
+
 </h2>
 
 
@@ -50,22 +51,22 @@ Información útil sobre el desarrollo de proyectos en Unreal Engine 5 utilizand
 </h2>
 
 <p align="center">
-  El autor no se hace responsable de ninguna consecuencia posible por el uso de este proyecto.<br>
-  Úselo bajo su propio riesgo.
+  El autor no se responsabiliza por las posibles consecuencias del uso de este proyecto.<br>
+  Use bajo su propio riesgo.
 </p>
 
 <details align="center"> 
-    <summary>⚠️Texto completo⚠️</summary>
+    <summary>⚠️texto completo⚠️</summary>
     
-Utilice los materiales de este repositorio bajo su propio riesgo.
+Use los materiales de este repositorio bajo su propio riesgo.
 
-1. Al utilizar estos materiales, usted acepta automáticamente los términos del acuerdo de licencia asociados.
+1. Al utilizar los materiales de este repositorio, automáticamente acepta los términos del acuerdo de licencia relacionado con él.
 
-2. El autor no ofrece ninguna garantía explícita o implícita respecto a la exactitud, integridad o idoneidad de estos materiales para ningún propósito específico. 
+2. El autor no otorga ninguna garantía, expresa o implícita, sobre la precisión, integridad o idoneidad de estos materiales para ningún propósito en particular. 
    
-3. El autor no se hace responsable de ninguna pérdida, incluidos, entre otros, daños directos, indirectos, incidentales, consecuentes o especiales que resulten del uso o la incapacidad de uso de los materiales de este repositorio o de la documentación que lo acompaña, incluso si se ha informado previamente de la posibilidad de dichos daños.
+3. El autor no es responsable por cualquier daño, incluyendo, pero no limitado a, daños directos, indirectos, incidentales, consecuenciales o especiales, que puedan surgir del uso o incapacidad de uso de los materiales de este repositorio o su documentación acompañante, incluso si se ha advertido previamente de la posibilidad de tales daños.
 
-4. Al utilizar este repositorio, reconoce y asume todos los riesgos asociados con su aplicación. Además, acepta que el autor no puede ser responsabilizado por problemas o consecuencias derivadas de su uso.
+4. Al usar los materiales de este repositorio, usted acepta y asume todos los riesgos relacionados con su aplicación. Además, acepta que el autor no puede ser responsabilizado por ningún problema o consecuencia derivada de su uso.
 
 </details> 
 
@@ -76,7 +77,7 @@ Utilice los materiales de este repositorio bajo su propio riesgo.
 </h3>
 
 <p align="center"> 
-Si este proyecto le ha sido útil, puede valorarlo dándole una estrella.:star2: 
+Si este proyecto le ha resultado útil, puede valorarlo dejando una estrella.:star2: 
 </p>
 
 
@@ -113,7 +114,7 @@ Las donaciones son muy bienvenidas, no importa cuán pequeñas sean, y muchas gr
 ---
 
 <p align="center">
-  <sub> Gracias por su interés en el proyecto y por su apoyo 💙 </sub>
+  <sub> Gracias por su atención al proyecto y por su apoyo 💙 </sub>
 </p>
 
 
@@ -130,18 +131,18 @@ Las donaciones son muy bienvenidas, no importa cuán pequeñas sean, y muchas gr
 
 ## 📚 Contenido
 
-- [🎯 Introducción - Por qué es necesario](#-introducción)
-- [💾 Qué es el caché y qué contiene](#1-qué-se-cachea-en-unreal-engine)
-- [🏗️ Cómo está estructurado el sistema de caché](#2-arquitectura-de-ddc-en-ue-57)
+- [🎯 Introducción - ¿Por qué es necesario?](#-introducción)
+- [💾 ¿Qué es el caché y qué se almacena en él?](#1-qué-se-cachea-en-unreal-engine)
+- [🏗️ ¿Cómo funciona el sistema de caché?](#2-arquitectura-ddc-en-ue-57)
 - [📁 Configuración simple a través de una carpeta compartida](#3-shared-ddc-a-través-de-filesystem)
-- [☁️ Configuración avanzada utilizando MinIO (la mejor opción)](#4-shared-ddc-a-través-de-minio-opción-recomendada)
+- [☁️ Configuración avanzada mediante MinIO (mejor opción)](#4-shared-ddc-a-través-de-minio-opción-recomendada)
 - [🤖 Automatización y CI/CD](#5-ddc-y-cicd-críticamente-importante)
-- [📦 Almacenamiento de otros archivos del proyecto](#6-content-storage-no-sólo-ddc)
-- [🔢 Versiones de caché - reglas importantes](#7-versionado-de-caché-un-error-común)
+- [📦 Almacenamiento de otros archivos del proyecto](#6-content-storage-no-solo-ddc)
+- [🔢 Versiones de caché - Reglas importantes](#7-versionado-del-caché-error-común)
 - [📊 Monitoreo y limpieza de archivos antiguos](#8-monitoreo-y-limpieza)
-- [⚠️ Qué NO se debe cachear](#9-cosas-que-no-deberían-cachearse)
-- [📈 Números reales de aceleración](#10-resultados-en-cifras)
-- [🛠️ Herramientas mínimas necesarias](#11-stack-mínimo-recomendado)
+- [⚠️ Qué NO se debe cachear](#9-lo-que-no-debería-cachearse)
+- [📈 Números reales de aceleración](#10-resultados-en-números)
+- [🛠️ Conjunto mínimo de herramientas](#11-stack-mínimo-recomendado)
 - [📚 Materiales adicionales](#adicional)
 
 ---
@@ -175,31 +176,51 @@ Las donaciones son muy bienvenidas, no importa cuán pequeñas sean, y muchas gr
 
 ## 4️⃣ Shared DDC a través de MinIO (opción recomendada)
 
-### 4.1 ¿Qué es MinIO y para qué sirve?
+### 4.1 ¿Qué es MinIO y por qué lo necesitas?
 
-**En palabras simples** `MinIO` - es un programa que convierte una carpeta normal en un disco en una forma de almacenamiento en la nube (es similar a AWS S3, pero privado).
+**en palabras simples** `MinIO` - Es un programa que convierte una carpeta normal en un disco en un almacenamiento en la nube (como AWS S3, pero propio).
 
 <details> 
     <summary>⚙️ Desplegar descripción</summary>
 
 **Analogía:**
-- **Filesystem** = una carpeta común en tu ordenador
-- **MinIO** = la misma carpeta, pero con una interfaz web y acceso a través de internet
+- **Filesystem** = una carpeta normal en tu computadora
+- **MinIO** = la misma carpeta, pero con interfaz web y acceso a través de internet
 
-**¿Por qué MinIO es mejor que una carpeta común?**
+**¿Por qué MinIO es mejor que una carpeta normal?**
 
-| Función | Carpeta común | MinIO |
+| Funcionalidad | Carpeta normal | MinIO |
 |---------|---------------|-------|
-| Trabajo en red local | ✅ Sí | ✅ Sí |
-| Trabajo a través de internet | ❌ Difícil | ✅ Fácil |
+| Funciona en red local | ✅ Sí | ✅ Sí |
+| Funciona a través de internet | ❌ Difícil | ✅ Fácil |
 | Versionado de archivos | ❌ No | ✅ Sí |
-| Limpieza automática de archivos antiguos | ❌ Manual | ✅ Automática |
+| Limpieza automática de archivos antiguos | ❌ Manual | ✅ Automáticamente |
 | Monitoreo del uso | ❌ No | ✅ Sí |
-| Escalabilidad | ❌ Mala | ✅ Excelente |
+| Escalabilidad | ❌ Limitada | ✅ Alta |
 | Seguridad | ⚠️ Básica | ✅ Avanzada |
 
 </details>
 
 ---
 
-Traducción del contenido restante continúa automáticamente aplicando las mismas instrucciones. Si deseas el texto completo, por favor indícalo.
+### 4.2 Arquitectura de funcionamiento
+
+<details> 
+    <summary>⚙️ Desplegar descripción</summary>
+
+```
+Desarrollador (Unreal Editor)
+         ↓ HTTP request
+      Servidor MinIO
+         ↓
+    Carpeta en el disco
+    /minio-data/
+      ├─ ue-ddc-5-7/     ← Bucket (contenedor para archivos)
+      │   ├─ Win64/
+      │   └─ Linux/
+```
+
+**¿Qué es un Bucket?**
+- `Bucket` = una carpeta virtual dentro de MinIO. Es como un "cajón" separado para almacenar archivos.
+
+</details>
