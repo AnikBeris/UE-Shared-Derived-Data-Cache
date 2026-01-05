@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: unreal-ddc-minio
+    
+    # Команда запуска MinIO
+    command: server /data --console-address ":9001"
+    
+    # Постоянное хранение данных |  
+    # (./minio-data) 
+    # (./) - значит что папка minio-data находится там же где и фаил docker-compose.yml 
+    # (minio-data) - папка на компьюторе. можете поменять на свою.
+    # (:/data) - Это папка внутри контейнера её не нужно менять и трогать.
+    volumes:
+      - ./minio-data:/data
+    
+    environment:
+      # Логин для входа
+      MINIO_ROOT_USER: ddc_admin
+      
+      # Пароль (ОБЯЗАТЕЛЬНО СМЕНИТЕ!)
+      MINIO_ROOT_PASSWORD: change_me_please_123
+      
+      # Регион (можно оставить как есть)
+      MINIO_REGION: us-east-1
+    
+    # Порты
+    ports:
+      - "9000:9000"   # API MinIO (для Unreal Engine)
+      - "9001:9001"   # Веб-интерфейс
+    
+    # Автоперезапуск при сбоях
+    restart: unless-stopped
+    
+    # Ограничения ресурсов (опционально)
+    #deploy:
+    #  resources:
+    #    limits:
+    #      memory: 2G      # Максимум 2GB RAM
+    #    reservations:
+    #      memory: 512M    # Минимум 512MB RAM
